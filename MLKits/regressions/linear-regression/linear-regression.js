@@ -18,12 +18,10 @@ class LinearRegression {
   gradientDescent(features, labels) {
     const currentGuesses = features.matMul(this.weights);
     const differences = currentGuesses.sub(labels);
-
     const slopes = features
       .transpose()
       .matMul(differences)
       .div(features.shape[0]);
-
     this.weights = this.weights.sub(slopes.mul(this.options.learningRate));
   }
 
@@ -68,13 +66,12 @@ class LinearRegression {
 
   processFeatures(features) {
     features = tf.tensor(features);
-    features = tf.ones([features.shape[0], 1]).concat(features, 1);
-
     if (this.mean && this.variance) {
       features = features.sub(this.mean).div(this.variance.pow(0.5));
     } else {
       features = this.standardize(features);
     }
+    features = tf.ones([features.shape[0], 1]).concat(features, 1);
 
     return features;
   }
@@ -84,7 +81,6 @@ class LinearRegression {
 
     this.mean = mean;
     this.variance = variance;
-
     return features.sub(mean).div(variance.pow(0.5));
   }
 
@@ -96,7 +92,6 @@ class LinearRegression {
       .sum()
       .div(this.features.shape[0])
       .get();
-    console.log({ mse, learningRate: this.options.learningRate });
     this.mseHistory.unshift(mse);
   }
 

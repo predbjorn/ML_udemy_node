@@ -8,6 +8,7 @@
   "license": "ISC",
   "dependencies": {
     "@tensorflow/tfjs-node": "^0.1.17",
+    "dayjs": "^1.11.9",
     "lodash": "^4.17.11",
     "mnist-data": "^1.2.6",
     "node-remote-plot": "^1.2.0",
